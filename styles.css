@@ -1,0 +1,125 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+:root {
+  --fuel-primary: yellow;
+}
+
+body {
+  overflow: hidden;
+  background: hsl(135, 62%, 30%);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.car {
+  --car-left: 700;
+  width: 50px;
+  height: 100px;
+  position: absolute;
+  bottom: 200px;
+  left: calc(var(--car-left) * 1px);
+  background: url("./img/michal-kalinowski-lamborghinimurcielago-ferrari458italia.jpg");
+  background-size: cover;
+  z-index: 999;
+}
+
+@keyframes smoking {
+  0% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.road {
+  --road-width: 400;
+  --road-bottom: 0;
+  width: calc(var(--road-width) * 1px);
+  height: calc(var(--road-height) * 1px);
+  background-color: #afafaf;
+  position: absolute;
+  bottom: calc(var(--road-bottom) * 1px);
+  left: calc(var(--road-left) * 1px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mark {
+  width: 2%;
+  height: 8%;
+  background-color: #bbb;
+}
+
+.disel {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: white;
+}
+
+.fuel-station {
+  width: 20%;
+  height: 60%;
+  border: 6px solid var(--fuel-primary);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--fuel-primary);
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.fuel-station.left {
+  left: 30px;
+}
+
+.fuel-station.right {
+  right: 30px;
+}
+
+.fuel-station.middle {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.alert {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 6rem;
+  font-weight: bold;
+  animation: fade-out 1s ease forwards;
+}
+
+.alert.fuel {
+  color: var(--fuel-primary);
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(5);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1);
+    top: 10px;
+    left: 10px;
+  }
+}
