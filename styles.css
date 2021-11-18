@@ -62,13 +62,16 @@ body {
 }
 
 .btn-small {
-  padding: 0.5em;
-  font-size: 1rem;
+  padding: 0.5rem;
+  font-size: 12px;
   color: white;
   background-color: #ccc;
   border: none;
   width: 10vw;
   border: 2px solid white;
+  user-select: none;
+  --webkit-user-select: none;
+  cursor: pointer;
 }
 
 .btn-small:hover {

@@ -24,9 +24,9 @@ export const car = createCar();
 // Add direction control to the car
 function addDirectionControl() {
     document.addEventListener('keydown', handleDirectionControl);
-    leftBtn.addEventListener('mousedown', handleDirectionControl)
-    rightBtn.addEventListener('mousedown', handleDirectionControl)
-    leftBtn.addEventListener('mouseup', () => {
+    leftBtn.addEventListener('touchstart', handleDirectionControl)
+    rightBtn.addEventListener('touchstart', handleDirectionControl)
+    leftBtn.addEventListener('touchend', () => {
         carDirection = '';
     })
     rightBtn.addEventListener('mouseup', () => {
