@@ -4,6 +4,10 @@ import { updateTrees, setupTrees } from './landscape.js';
 
 // Elments
 const startBtn = document.querySelector('[data-start]');
+const upBtn = document.querySelector('.up');
+const leftBtn = document.querySelector('.left');
+const rightBtn = document.querySelector('.right');
+const downBtn = document.querySelector('.down');
 
 let timeSinceLastUpdate;
 let stopGame = false;
@@ -46,7 +50,7 @@ function handleStop() {
     console.log('stop');
     setTimeout(() => {
         startBtn.addEventListener('click', handleStart);
-    }, 200)
+    }, 200);
     startBtn.classList.remove('hide');
     document.addEventListener('keypress', handleStart, {once: true});
 }

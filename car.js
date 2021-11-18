@@ -2,6 +2,10 @@ import { setCarSpeed, getCarSpeed, getFuelStations } from "./road.js";
 
 // Elments
 const fuelElem = document.querySelector('[data-fuel]');
+const upBtn = document.querySelector('.up');
+const leftBtn = document.querySelector('.left');
+const rightBtn = document.querySelector('.right');
+const downBtn = document.querySelector('.down');
 
 // Constants
 const CAR_CHANGE_DIRECTION_SPEED = .5;
@@ -20,6 +24,14 @@ export const car = createCar();
 // Add direction control to the car
 function addDirectionControl() {
     document.addEventListener('keydown', handleDirectionControl);
+    leftBtn.addEventListener('mousedown', handleDirectionControl)
+    rightBtn.addEventListener('mousedown', handleDirectionControl)
+    leftBtn.addEventListener('mouseup', () => {
+        carDirection = '';
+    })
+    rightBtn.addEventListener('mouseup', () => {
+        carDirection = '';
+    })
     document.addEventListener('keyup', (e) => {
         carDirection = '';
     })
@@ -48,10 +60,10 @@ function handleSpeedControl(e) {
 }
 
 function handleDirectionControl(e) {
-    if(e.code === "ArrowLeft") {
+    if(e.code === "ArrowLeft" || e.target.classList.contains('left')) {
         carDirection = 'left';
     } 
-    if(e.code === "ArrowRight") {
+    if(e.code === "ArrowRight" || e.target.classList.contains('right')) {
         carDirection = 'right';
     }
 }

@@ -43,6 +43,33 @@ body {
 .btn.hide {
   opacity: 0;
 }
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+}
+
+.up {
+  grid-column: span 2;
+}
+
+.down {
+  grid-column: span 2;
+}
+
+.btn-small {
+  padding: 0.5em;
+  font-size: 1rem;
+  color: white;
+  background-color: #ccc;
+  border: none;
+  width: 100px;
+  border: 2px solid white;
+}
+
 .center {
   position: absolute;
   top: 50%;
@@ -50,6 +77,13 @@ body {
   transform: translate(-50%, -50%);
   z-index: 9999;
 }
+
+.controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
 .car {
   --car-size: 7;
   width: calc(var(--car-size) * 1vw);
@@ -109,7 +143,7 @@ body {
   align-items: center;
   color: var(--fuel-primary);
   font-weight: bold;
-  font-size: 2rem;
+  font-size: 2em;
 }
 
 .fuel-station.left {
