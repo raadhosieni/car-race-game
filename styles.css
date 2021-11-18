@@ -15,9 +15,35 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.btn {
+  width: 400px;
+  padding: 0.5em;
+  height: 100px;
+  color: white;
+  background-color: hsl(300, 70%, 70%);
+  border: 2px solid white;
+  font-weight: bold;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: hsl(300, 70%, 50%);
+}
+
+.btn.hide {
+  opacity: 0;
+}
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
 .car {
-  width: 7%;
-  height: 20%;
+  width: 100px;
+  height: 200px;
   position: absolute;
   bottom: 20%;
   left: calc(var(--car-left) * 1%);

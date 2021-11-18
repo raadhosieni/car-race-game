@@ -2,11 +2,15 @@ import { setupCar, updateCar, car } from './car.js';
 import { createRoad, updateRoads, setupRoad } from './road.js';
 import { updateTrees, setupTrees } from './landscape.js';
 
+// Elments
+const startBtn = document.querySelector('[data-start]');
+
 let timeSinceLastUpdate;
 let stopGame = false;
 
 // Events
 document.addEventListener('keypress', handleStart, {once: true});
+startBtn.addEventListener('click', handleStart)
 document.addEventListener('keypress', e => {
     if(e.code == "Space") {
         stopGame = !stopGame;
@@ -39,6 +43,7 @@ function checkStopGame() {
 }
 
 function handleStop() {
+    startBtn.classList.remove('hide');
     document.addEventListener('keypress', handleStart, {once: true});
 }
 
@@ -53,5 +58,6 @@ function setupGame() {
 
 function handleStart() {
     setupGame();
+    startBtn.classList.add('hide');
     window.requestAnimationFrame(updateLoop);
 }
