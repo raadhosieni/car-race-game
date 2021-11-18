@@ -17,16 +17,25 @@ body {
 
 .btn {
   width: 400px;
-  padding: 0.5em;
   height: 100px;
+  padding: 0.5em;
   color: white;
   background-color: hsl(300, 70%, 70%);
   border: 2px solid white;
   font-weight: bold;
   font-size: 2rem;
+  outline: none;
   cursor: pointer;
 }
 
+@media (max-width: 778px) {
+  .btn {
+    width: 200px;
+    height: 50px;
+    padding: 0.25em;
+    font-size: 1rem;
+  }
+}
 .btn:hover {
   background-color: hsl(300, 70%, 50%);
 }
@@ -42,13 +51,13 @@ body {
   z-index: 9999;
 }
 .car {
-  width: 100px;
-  height: 200px;
+  --car-size: 7;
+  width: calc(var(--car-size) * 1vw);
+  height: calc(var(--car-size) * 2vw);
   position: absolute;
   bottom: 20%;
   left: calc(var(--car-left) * 1%);
-  background: url("./img/michal-kalinowski-lamborghinimurcielago-ferrari458italia.jpg");
-  background-size: cover;
+  background-color: red;
   z-index: 999;
 }
 
@@ -63,10 +72,10 @@ body {
 }
 
 .road {
-  width: calc(var(--road-width) * 1%);
-  height: calc(var(--road-height) * 1%);
-  bottom: calc(var(--road-bottom) * 1%);
-  left: calc(var(--road-left) * 1%);
+  width: calc(var(--road-width) * 1vw);
+  height: calc(var(--road-height) * 1vw);
+  bottom: calc(var(--road-bottom) * 1vw);
+  left: calc(var(--road-left) * 1vw);
   background-color: #afafaf;
   position: absolute;
   display: flex;

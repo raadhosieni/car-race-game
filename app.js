@@ -15,7 +15,7 @@ document.addEventListener('keypress', e => {
     if(e.code == "Space") {
         stopGame = !stopGame;
         console.log(stopGame);
-    }
+    } 
 })
 
 
@@ -39,10 +39,14 @@ function updateLoop(time) {
 }
 
 function checkStopGame() {
-    return stopGame || car.disel === 0;
+    return stopGame || car.fuel === 0;
 }
 
 function handleStop() {
+    console.log('stop');
+    setTimeout(() => {
+        startBtn.addEventListener('click', handleStart);
+    }, 200)
     startBtn.classList.remove('hide');
     document.addEventListener('keypress', handleStart, {once: true});
 }
@@ -58,6 +62,7 @@ function setupGame() {
 
 function handleStart() {
     setupGame();
+    startBtn.removeEventListener('click',handleStart);
     startBtn.classList.add('hide');
     window.requestAnimationFrame(updateLoop);
 }
