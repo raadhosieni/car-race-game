@@ -1,21 +1,21 @@
-
-// Elments
-const carElem = document.querySelector('[data-car]');
-const diselElem = document.querySelector('[data-disel]');
-
-// Constants
-const CAR_CHANGE_DIRECTION_SPEED = 5;
 import { setCarSpeed, getCarSpeed, getFuelStations } from "./road.js";
 
+// Elments
+const fuelElem = document.querySelector('[data-fuel]');
+
+// Constants
+const CAR_CHANGE_DIRECTION_SPEED = .5;
 const TANK_FULL_SIZE = 100;
 const FUEL_CONSUMING_START_RATE = .005;
 const BREAK_ACCELERATOR = 0.0005; 
-const ACCELERATOR = 0.1;
-const MAX_SPEED = 1.5;
-const START_SPEED = 0.4;
+const ACCELERATOR = 0.01;
+const MAX_SPEED = 0.5;
+const START_SPEED = 0.03;
 
 
 let carDirection, fuel, fuel_consuming_rate;
+
+export const car = createCar();
 
 // Add direction control to the car
 function addDirectionControl() {
@@ -62,7 +62,32 @@ export function setupCar() {
     setCarSpeed(START_SPEED);
     addSpeedControl();
     addDirectionControl();
-    diselElem.innerText = car.fuel;
+    fuelElem.innerText = car.fuel;
+}
+
+
+
+export function updateCar(delta) {
+
+    updateCarDirection();
+
+    // Stop car if fuel is 0
+    if(car.fuel <= 0) {
+        if(getCarSpeed() > 0) {
+            // Decrease the car speed as a percentage of the current speed
+            setCarSpeed(getCarSpeed() - delta * (BREAK_ACCELERATOR * getCarSpeed()));
+            removeSpeedControl();
+        }
+        
+        setTimeout(() => {
+            if(car.fuel < 0) car.fuel = 0;
+        }, 5000);
+    } else {
+        addSpeedControl();
+    }
+
+    // Update fuel
+    updateFuel(delta);
 }
 
 function updateCarDirection() {
@@ -74,35 +99,10 @@ function updateCarDirection() {
     }
 }
 
-export function updateCar(delta) {
-
-    updateCarDirection();
-
-    // Stop car if disel is 0
-    if(car.fuel <= 0) {
-        if(getCarSpeed() > 0) {
-            // Decrease the car speed as a percentage of the current speed
-            setCarSpeed(getCarSpeed() - delta * (BREAK_ACCELERATOR * getCarSpeed()));
-            removeSpeedControl();
-        }
-        
-        setTimeout(() => {
-            if(car.fuel < 0) car.fuel = 0;
-        }, 7000);
-    } else {
-        addSpeedControl();
-    }
-
-    // Update disel
-    updateFuel(delta);
-}
-
-
-
 function updateFuel(delta) {
     const rects = getFuelStations();    
     rects.forEach(station => {
-        if(checkCollision(station.rect, carElem.getBoundingClientRect())) {
+        if(checkCollision(station.rect, car.getCarRect())) {
             if(car.fuel  < TANK_FULL_SIZE) {
                 car.refill(station.size);
                 if(car.fuel > TANK_FULL_SIZE) {
@@ -124,7 +124,7 @@ function updateFuel(delta) {
 
     if(car.fuel > 0) {
         car.fuel -= fuel_consuming_rate * delta;
-        diselElem.innerText = `Disel: ${Math.ceil(car.fuel)}`;
+        fuelElem.innerText = `Fuel: ${Math.ceil(car.fuel)}`;
     }
 }
 
@@ -137,28 +137,41 @@ function checkCollision(rect1, rect2) {
         )
 }
 
-export const car = {
-    get fuel() {
-        return fuel;
-    },
-    set fuel(value) {
-        fuel = value;
-    },
-    get left() {
-        return parseFloat(getComputedStyle(carElem).getPropertyValue('--car-left'));
-    },
-    set left(value) {
-        carElem.style.setProperty('--car-left', value)
-    }, 
-    changeDirection(direction) {
-        if(direction === 'left') {
-            car.left -= CAR_CHANGE_DIRECTION_SPEED;
-        } else if(direction === 'right') {
-            car.left += CAR_CHANGE_DIRECTION_SPEED;
+function createCar() {
+    const carElem = document.createElement('div');
+    carElem.classList.add('car');
+    const car = {
+        get fuel() {
+            return fuel;
+        },
+        set fuel(value) {
+            fuel = value;
+        },
+        get left() {
+            return parseFloat(getComputedStyle(carElem).getPropertyValue('--car-left'));
+        },
+        set left(value) {
+            carElem.style.setProperty('--car-left', value)
+        }, 
+        changeDirection(direction) {
+            if(direction === 'left') {
+                console.log('left');
+                car.left -= CAR_CHANGE_DIRECTION_SPEED;
+            } else if(direction === 'right') {
+                console.log('right');
+                car.left += CAR_CHANGE_DIRECTION_SPEED;
+            }
+        }, 
+        refill(size) {
+            car.fuel += parseFloat(size);
+        }, 
+        getCarRect() {
+            return carElem.getBoundingClientRect();
         }
-    }, 
-    refill(size) {
-        car.fuel += parseFloat(size);
     }
+    document.body.append(carElem);
+    car.left = 50;
+    return car;
 }
+
 

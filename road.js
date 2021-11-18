@@ -1,8 +1,11 @@
+import { randomNumberBetween } from './helpers.js';
+
 let roads = [];
 let timeSinceLastRoad;
 let roadInterval;
 let carSpeed;
-const ROAD_HEIGHT = 200;
+const ROAD_HEIGHT = 30; // 10% of window height
+const ROAD_WIDTH = ROAD_HEIGHT * 1.2; // two times of raod hight of window width
 
 
 const FUEL_STATION_DISTANCE = 10; // 10 road segments
@@ -13,6 +16,7 @@ const stationSizes = [5, 10, 15, 20];
 
 export function setupRoad() {
     document.documentElement.style.setProperty('--road-height', ROAD_HEIGHT);
+    document.documentElement.style.setProperty('--road-width', ROAD_WIDTH);
     distanceSinceLastStation = 0;
     timeSinceLastRoad = 0;
     roads.forEach(road => {
@@ -70,7 +74,7 @@ export function updateRoads(delta) {
 export function createRoad() {
     const roadElem = document.createElement('div');
     roadElem.classList.add('road');
-    roadElem.style.setProperty('--road-left', randomNumberBetween(450, 490))
+    roadElem.style.setProperty('--road-left', 50)
     
     // Create mark element
     const roadMark = document.createElement('div');
@@ -102,11 +106,7 @@ export function createRoad() {
     }
 
     document.body.append(roadElem);
-    road.bottom = 1000;
+    road.bottom = 100;
     roads.push(road);
 }
 
-// Generate random number between tow numbers
-function randomNumberBetween(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
-}

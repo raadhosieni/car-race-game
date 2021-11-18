@@ -1,5 +1,6 @@
 import { setupCar, updateCar, car } from './car.js';
 import { createRoad, updateRoads, setupRoad } from './road.js';
+import { updateTrees, setupTrees } from './landscape.js';
 
 let timeSinceLastUpdate;
 let stopGame = false;
@@ -28,6 +29,7 @@ function updateLoop(time) {
     }
     updateCar(delta);
     updateRoads(delta);
+    updateTrees(delta);
     timeSinceLastUpdate = time;
     window.requestAnimationFrame(updateLoop);
 }
@@ -46,6 +48,7 @@ function setupGame() {
     createRoad();
     setupRoad();
     setupCar();
+    setupTrees();
 }
 
 function handleStart() {
