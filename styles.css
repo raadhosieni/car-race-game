@@ -50,6 +50,7 @@ body {
   align-items: center;
   justify-content: center;
   justify-items: center;
+  gap: 5px;
 }
 
 .up {
@@ -66,8 +67,12 @@ body {
   color: white;
   background-color: #ccc;
   border: none;
-  width: 100px;
+  width: 10vw;
   border: 2px solid white;
+}
+
+.btn-small:hover {
+  background-color: #555;
 }
 
 .center {
